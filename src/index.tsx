@@ -6,8 +6,8 @@ import App from "app/App";
 import reportWebVitals from "./reportWebVitals";
 import "./index.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { SignIn } from "features/auth/sign-in/SignIn";
-import { SignUp } from "features/auth/sign-up/SignUp";
+import Login from "features/auth/login/Login";
+import SignUp from "features/auth/sign-up/SignUp";
 
 const router = createBrowserRouter([
   {
@@ -16,7 +16,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/login",
-    element: <SignIn />,
+    element: <Login />,
   },
   {
     path: "/register",

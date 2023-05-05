@@ -1,23 +1,3 @@
-// import React from "react";
-// import { useAppDispatch } from "app/hooks";
-// import { authThunks } from "features/auth/auth.slice";
-//
-// export const SignUp = () => {
-//   const dispatch = useAppDispatch();
-//
-//   const registerHandler = () => {
-//     const payload = { email: "aiym@gmail.com", password: "123456789" };
-//     dispatch(authThunks.register(payload));
-//   };
-//
-//   return (
-//     <div>
-//       <h1>Register</h1>
-//       <button onClick={registerHandler}>register</button>
-//     </div>
-//   );
-// };
-
 import * as React from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
@@ -34,7 +14,6 @@ import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { IconButton, Input, InputAdornment, InputLabel } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
-import { NavLink } from "react-router-dom";
 
 function Copyright(props: any) {
   return (
@@ -51,7 +30,7 @@ function Copyright(props: any) {
 
 const theme = createTheme();
 
-export default function SignUp() {
+export default function Login() {
   const [showPassword, setShowPassword] = React.useState(false);
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -93,28 +72,8 @@ export default function SignUp() {
               required
               fullWidth
               id="password"
+              autoComplete="current-password"
               placeholder={"Password"}
-              autoComplete="current-password"
-              type={showPassword ? "text" : "password"}
-              endAdornment={
-                <InputAdornment position="end">
-                  <IconButton
-                    aria-label="toggle password visibility"
-                    onClick={handleClickShowPassword}
-                    onMouseDown={handleMouseDownPassword}
-                    edge="end"
-                  >
-                    {showPassword ? <VisibilityOff /> : <Visibility />}
-                  </IconButton>
-                </InputAdornment>
-              }
-            />
-            <Input
-              required
-              fullWidth
-              id="password"
-              placeholder={"Confirm password"}
-              autoComplete="current-password"
               type={showPassword ? "text" : "password"}
               endAdornment={
                 <InputAdornment position="end">
@@ -132,12 +91,17 @@ export default function SignUp() {
 
             <FormControlLabel control={<Checkbox value="remember" color="primary" />} label="Remember me" />
             <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
-              Sign Up
+              Sign In
             </Button>
             <Grid container>
+              <Grid item xs>
+                <Link href="#" variant="body2">
+                  Forgot password?
+                </Link>
+              </Grid>
               <Grid item>
-                <Link href="/login" variant="body2">
-                  {"Already have an account? Sign In"}
+                <Link href="/register" variant="body2">
+                  {"Don't have an account? Sign Up"}
                 </Link>
               </Grid>
             </Grid>

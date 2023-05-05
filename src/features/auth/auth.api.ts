@@ -5,7 +5,7 @@ export const authApi = {
     return instance.post<RegisterResponseType>("/auth/register", arg);
   },
   login: (arg: ArgLoginType) => {
-    return instance.post<LoginResponseType>("/auth/login", arg);
+    return instance.post<ProfileType>("/auth/login", arg);
   },
 };
 
@@ -16,9 +16,10 @@ export type ArgLoginType = {
   rememberMe: boolean;
 };
 
+//т.е. в ArgRegisterType не нужен rememberMe из ArgLoginType. Ну, все свойства одинаковые кроме rememberMe.
 export type ArgRegisterType = Omit<ArgLoginType, "rememberMe">;
 
-export type LoginResponseType = {
+export type ProfileType = {
   _id: string;
   email: string;
   rememberMe: boolean;
@@ -34,18 +35,5 @@ export type LoginResponseType = {
 };
 
 export type RegisterResponseType = {
-  addedUser: Omit<LoginResponseType, "token" | "tokenDeathTime">;
+  addedUser: Omit<ProfileType, "token" | "tokenDeathTime">;
 };
-
-// type UserType = {
-//   _id: string;
-//   email: string;
-//   rememberMe: boolean;
-//   isAdmin: boolean;
-//   name: string;
-//   verified: boolean;
-//   publicCardPacksCount: number;
-//   created: string;
-//   updated: string;
-//   __v: number;
-// };
