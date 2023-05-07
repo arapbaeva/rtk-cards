@@ -1,30 +1,7 @@
-// import React from "react";
-// import { useAppDispatch } from "app/hooks";
-// import { authThunks } from "features/auth/auth.slice";
-//
-// export const SignUp = () => {
-//   const dispatch = useAppDispatch();
-//
-//   const registerHandler = () => {
-//     const payload = { email: "aiym@gmail.com", password: "123456789" };
-//     dispatch(authThunks.register(payload));
-//   };
-//
-//   return (
-//     <div>
-//       <h1>Register</h1>
-//       <button onClick={registerHandler}>register</button>
-//     </div>
-//   );
-// };
-
 import * as React from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
-import TextField from "@mui/material/TextField";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
 import Link from "@mui/material/Link";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
@@ -32,41 +9,50 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { IconButton, Input, InputAdornment, InputLabel } from "@mui/material";
+import { IconButton, Input, InputAdornment } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
-import { NavLink } from "react-router-dom";
-
-function Copyright(props: any) {
-  return (
-    <Typography variant="body2" color="text.secondary" align="center" {...props}>
-      {"Copyright © "}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
-      </Link>{" "}
-      {new Date().getFullYear()}
-      {"."}
-    </Typography>
-  );
-}
+import { useAppDispatch } from "app/hooks";
+import { Copyright } from "common/copyright/Copyright";
+import { useState } from "react";
+import { useFormik } from "formik";
+import * as Yup from "yup";
+import { authThunks } from "features/auth/auth.slice";
+import "../../../styles/_form.scss";
 
 const theme = createTheme();
 
 export default function SignUp() {
-  const [showPassword, setShowPassword] = React.useState(false);
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
-    });
-  };
-
-  const handleClickShowPassword = () => setShowPassword((show) => !show);
+  const [passwordShown, setPasswordShown] = React.useState(false);
+  const dispatch = useAppDispatch();
+  const handleClickShowPassword = () => setPasswordShown((show) => !show);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
   };
+  const toggleShowConfirmPassword = () => {
+    setShowConfirmPassword(!showConfirmPassword);
+  };
+  const formik = useFormik({
+    initialValues: {
+      email: "",
+      password: "",
+      confirmPassword: "",
+    },
+    validationSchema: Yup.object({
+      email: Yup.string().email("Invalid email address").required("Required"),
+      password: Yup.string().required("Password is required").matches(/.{8,}/, {
+        excludeEmptyString: true,
+        message: "Must min 8 characters",
+      }),
+      confirmPassword: Yup.string()
+        .required("Please confirm your password")
+        .oneOf([Yup.ref("password")], "Passwords do not match"),
+    }),
+    onSubmit: (data) => {
+      dispatch(authThunks.register(data));
+    },
+  });
 
   return (
     <ThemeProvider theme={theme}>
@@ -84,63 +70,81 @@ export default function SignUp() {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Sign in
+            Sign up
           </Typography>
-          <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
-            <Input required fullWidth id="email" placeholder={"Email"} name="email" autoComplete="email" autoFocus />
+          <Box component="form" noValidate sx={{ mt: 1 }}>
+            <form onSubmit={formik.handleSubmit}>
+              <Input
+                required
+                fullWidth
+                id="email"
+                type="email"
+                className={"input"}
+                placeholder={"Email"}
+                {...formik.getFieldProps("email")}
+              />
+              {formik.touched.email && formik.errors.email ? (
+                <span className={"error-lbl"}>{formik.errors.email}</span>
+              ) : null}
 
-            <Input
-              required
-              fullWidth
-              id="password"
-              placeholder={"Password"}
-              autoComplete="current-password"
-              type={showPassword ? "text" : "password"}
-              endAdornment={
-                <InputAdornment position="end">
-                  <IconButton
-                    aria-label="toggle password visibility"
-                    onClick={handleClickShowPassword}
-                    onMouseDown={handleMouseDownPassword}
-                    edge="end"
-                  >
-                    {showPassword ? <VisibilityOff /> : <Visibility />}
-                  </IconButton>
-                </InputAdornment>
-              }
-            />
-            <Input
-              required
-              fullWidth
-              id="password"
-              placeholder={"Confirm password"}
-              autoComplete="current-password"
-              type={showPassword ? "text" : "password"}
-              endAdornment={
-                <InputAdornment position="end">
-                  <IconButton
-                    aria-label="toggle password visibility"
-                    onClick={handleClickShowPassword}
-                    onMouseDown={handleMouseDownPassword}
-                    edge="end"
-                  >
-                    {showPassword ? <VisibilityOff /> : <Visibility />}
-                  </IconButton>
-                </InputAdornment>
-              }
-            />
-
-            <FormControlLabel control={<Checkbox value="remember" color="primary" />} label="Remember me" />
-            <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
-              Sign Up
-            </Button>
-            <Grid container>
-              <Grid item>
-                <Link href="/login" variant="body2">
-                  {"Already have an account? Sign In"}
-                </Link>
+              <Input
+                required
+                fullWidth
+                id="password"
+                placeholder={"Password"}
+                type={passwordShown ? "text" : "password"}
+                {...formik.getFieldProps("password")}
+                endAdornment={
+                  <InputAdornment position="end">
+                    <IconButton
+                      aria-label="toggle password visibility"
+                      onClick={handleClickShowPassword}
+                      onMouseDown={handleMouseDownPassword}
+                      edge="end"
+                    >
+                      {passwordShown ? <VisibilityOff /> : <Visibility />}
+                    </IconButton>
+                  </InputAdornment>
+                }
+              />
+              {formik.touched.password && formik.errors.password ? (
+                <span className={"error-lbl"}>{formik.errors.password}</span>
+              ) : null}
+              <Input
+                required
+                fullWidth
+                id="confirmPassword"
+                className={"password"}
+                placeholder={"Confirm password"}
+                type={showConfirmPassword ? "text" : "password"}
+                {...formik.getFieldProps("confirmPassword")}
+                endAdornment={
+                  <InputAdornment position="end">
+                    <IconButton
+                      aria-label="toggle password visibility"
+                      onClick={toggleShowConfirmPassword}
+                      onMouseDown={toggleShowConfirmPassword}
+                      edge="end"
+                    >
+                      {showConfirmPassword ? <VisibilityOff /> : <Visibility />}
+                    </IconButton>
+                  </InputAdornment>
+                }
+              />
+              {formik.touched.confirmPassword && formik.errors.confirmPassword ? (
+                <span className={"error-lbl"}>{formik.errors.confirmPassword}</span>
+              ) : null}
+              <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
+                Sign Up
+              </Button>
+              <Grid container>
+                <Grid item>
+                  <Link href="/login" variant="body2">
+                    {"Already have an account? Sign In"}
+                  </Link>
+                </Grid>
               </Grid>
-            </Grid>
+            </form>
           </Box>
         </Box>
         <Copyright sx={{ mt: 8, mb: 4 }} />

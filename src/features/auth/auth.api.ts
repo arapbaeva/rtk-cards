@@ -14,10 +14,11 @@ export type ArgLoginType = {
   email: string;
   password: string;
   rememberMe: boolean;
+  confirmPassword?: string;
 };
 
 //т.е. в ArgRegisterType не нужен rememberMe из ArgLoginType. Ну, все свойства одинаковые кроме rememberMe.
-export type ArgRegisterType = Omit<ArgLoginType, "rememberMe">;
+export type ArgRegisterType = Pick<ArgLoginType, "email" | "password" | "confirmPassword">;
 
 export type ProfileType = {
   _id: string;
