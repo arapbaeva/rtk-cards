@@ -19,6 +19,27 @@ const slice = createSlice({
       state.error = action.payload.error;
     },
   },
+  extraReducers: (builder) => {
+    builder
+      .addMatcher(
+        (action) => action.type.endsWith("/pending"),
+        (state, action) => {
+          state.isLoading = true;
+        }
+      )
+      .addMatcher(
+        (action) => action.type.endsWith("/fulfilled"),
+        (state, action) => {
+          state.isLoading = false;
+        }
+      )
+      .addMatcher(
+        (action) => action.type.endsWith("/rejected"),
+        (state, action) => {
+          state.isLoading = false;
+        }
+      );
+  },
 });
 
 export const appReducer = slice.reducer;
