@@ -2,9 +2,17 @@ import { createSlice, current } from "@reduxjs/toolkit";
 import { ArgLoginType, ArgRegisterType, authApi, NewPasswordType, ProfileType } from "features/auth/auth.api";
 import { createAppAsyncThunk } from "common/utils/createAppAsyncThunk";
 import { profileApi, UserProfile } from "features/auth/profile/profile.api";
+import { appActions } from "app/app.slice";
 
-const register = createAppAsyncThunk<void, ArgRegisterType>("auth/register", async (arg: ArgRegisterType) => {
-  await authApi.register(arg);
+const register = createAppAsyncThunk<void, ArgRegisterType>("auth/register", async (arg: ArgRegisterType, thunkAPI) => {
+  const { dispatch, rejectWithValue } = thunkAPI;
+  try {
+    await authApi.register(arg);
+  } catch (e: any) {
+    const err = e.data.data.error;
+    dispatch(appActions.setError({ error: err }));
+    return rejectWithValue(null);
+  }
 });
 
 const login = createAppAsyncThunk<{ profile: ProfileType }, ArgLoginType>("auth/login", async (arg) => {
