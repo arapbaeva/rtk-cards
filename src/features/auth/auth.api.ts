@@ -1,5 +1,11 @@
 import { instance } from "common/api/common.api";
 
+const message = `<div style="background-color: lime; padding: 15px">
+password recovery link: 
+<a href='http://localhost:3000/set-new-password/$token$'>
+link</a>
+</div>`;
+
 export const authApi = {
   register: (arg: ArgRegisterType) => {
     return instance.post<RegisterResponseType>("/auth/register", arg);
@@ -7,9 +13,22 @@ export const authApi = {
   login: (arg: ArgLoginType) => {
     return instance.post<ProfileType>("/auth/login", arg);
   },
+  forgot: (email: string) => {
+    return instance.post("/auth/forgot", { email, message }, { withCredentials: true });
+  },
+  newPassword: (data: NewPasswordType) => {
+    return instance.post("/auth/set-new-password", data);
+  },
+  me: () => {
+    return instance.post<ProfileType>("/auth/me");
+  },
 };
 
 // Types
+export type NewPasswordType = {
+  password: string;
+  resetPasswordToken: string | undefined;
+};
 export type ArgLoginType = {
   email: string;
   password: string;
