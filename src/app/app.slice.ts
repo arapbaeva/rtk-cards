@@ -29,7 +29,7 @@ const slice = createSlice({
         }
       )
       .addMatcher(
-        (action) => action.type.endsWith("/fulfilled"),
+        (action) => action.type.endsWith("/rejected"),
         (state, action) => {
           const err = action.payload as Error | AxiosError<{ error: string }>;
           if (isAxiosError(err)) {
@@ -41,7 +41,7 @@ const slice = createSlice({
         }
       )
       .addMatcher(
-        (action) => action.type.endsWith("/rejected"),
+        (action) => action.type.endsWith("/fulfilled"),
         (state, action) => {
           state.isLoading = false;
         }
