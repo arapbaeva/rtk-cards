@@ -3,26 +3,19 @@ import { ArgLoginType, ArgRegisterType, authApi, NewPasswordType, ProfileType } 
 import { createAppAsyncThunk } from "common/utils/createAppAsyncThunk";
 import { profileApi, UserProfile } from "features/auth/profile/profile.api";
 import { appActions } from "app/app.slice";
+import { thunkTryCatch } from "common/utils/thunk-try-catch";
 
 const register = createAppAsyncThunk<void, ArgRegisterType>("auth/register", async (arg: ArgRegisterType, thunkAPI) => {
-  const { dispatch, rejectWithValue } = thunkAPI;
-  try {
+  return thunkTryCatch(thunkAPI, async () => {
     await authApi.register(arg);
-  } catch (e: any) {
-    dispatch(appActions.setError({ error: e.response ? e.response.data.error : e.message }));
-    return rejectWithValue(null);
-  }
+  });
 });
 
 const login = createAppAsyncThunk<{ profile: ProfileType }, ArgLoginType>("auth/login", async (arg, thunkAPI) => {
-  const { dispatch, rejectWithValue } = thunkAPI;
-  try {
+  return thunkTryCatch(thunkAPI, async () => {
     const res = await authApi.login(arg);
     return { profile: res.data };
-  } catch (e: any) {
-    dispatch(appActions.setError({ error: e.response ? e.response.data.error : e.message }));
-    return rejectWithValue(null);
-  }
+  });
 });
 
 const recoveryPassword = createAppAsyncThunk<{ email: string }, string>("auth/recoveryPassword", async (arg) => {

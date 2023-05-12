@@ -55,8 +55,8 @@ const root = createRoot(container);
 root.render(
   <Provider store={store}>
     <GlobalError />
-    <RouterProvider router={router} />
     <App />
+    <RouterProvider router={router} />
   </Provider>
 );
 

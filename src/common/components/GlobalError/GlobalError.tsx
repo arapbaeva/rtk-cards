@@ -1,14 +1,22 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { toast, ToastContainer } from "react-toastify";
-import { useAppSelector } from "app/hooks";
+import { useAppDispatch, useAppSelector } from "app/hooks";
 import "react-toastify/dist/ReactToastify.css";
+import { appActions } from "app/app.slice";
 
 export const GlobalError = () => {
   const error = useAppSelector((state) => state.app.error);
-
+  const dispatch = useAppDispatch();
   if (error !== null) {
     toast.error(error);
   }
+
+  useEffect(() => {
+    setTimeout(() => {
+      dispatch(appActions.setError({ error: null }));
+    }, 2000);
+  }, [error]);
+
   return (
     <ToastContainer
       position="top-right"
