@@ -13,12 +13,12 @@ import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { IconButton, Input, InputAdornment } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
-import { useAppDispatch } from "app/hooks";
 import { authThunks } from "features/auth/auth.slice";
 import { Copyright } from "common/copyright/Copyright";
 import * as Yup from "yup";
 import { useFormik } from "formik";
 import "../../../styles/_form.scss";
+import { useAppDispatch } from "common/hooks/useAppDispatch";
 
 const theme = createTheme();
 

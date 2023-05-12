@@ -1,6 +1,5 @@
 import React from "react";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { useAppDispatch, useAppSelector } from "app/hooks";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { authThunks } from "features/auth/auth.slice";
@@ -15,6 +14,8 @@ import { Visibility, VisibilityOff } from "@mui/icons-material";
 import Button from "@mui/material/Button";
 import { Copyright } from "common/copyright/Copyright";
 import { Navigate, useParams } from "react-router-dom";
+import { useAppDispatch } from "common/hooks/useAppDispatch";
+import { useAppSelector } from "common/hooks/useAppSelector";
 
 const theme = createTheme();
 

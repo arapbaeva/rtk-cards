@@ -13,7 +13,8 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { authThunks } from "features/auth/auth.slice";
 import { Navigate, NavLink, useNavigate } from "react-router-dom";
-import { useAppDispatch, useAppSelector } from "app/hooks";
+import { useAppDispatch } from "common/hooks/useAppDispatch";
+import { useAppSelector } from "common/hooks/useAppSelector";
 
 const theme = createTheme();
 export const ForgotPassword = () => {

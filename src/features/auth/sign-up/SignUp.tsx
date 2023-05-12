@@ -11,7 +11,6 @@ import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { IconButton, Input, InputAdornment } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
-import { useAppDispatch, useAppSelector } from "app/hooks";
 import { Copyright } from "common/copyright/Copyright";
 import { useState } from "react";
 import { useFormik } from "formik";
@@ -19,6 +18,8 @@ import * as Yup from "yup";
 import { authThunks } from "features/auth/auth.slice";
 import "../../../styles/_form.scss";
 import { Navigate } from "react-router-dom";
+import { useAppDispatch } from "common/hooks/useAppDispatch";
+import { useAppSelector } from "common/hooks/useAppSelector";
 
 const theme = createTheme();
 
