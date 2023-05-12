@@ -9,8 +9,7 @@ const register = createAppAsyncThunk<void, ArgRegisterType>("auth/register", asy
   try {
     await authApi.register(arg);
   } catch (e: any) {
-    const err = e.data.data.error;
-    dispatch(appActions.setError({ error: err }));
+    dispatch(appActions.setError({ error: e.response ? e.response.data.error : e.message }));
     return rejectWithValue(null);
   }
 });
