@@ -18,8 +18,7 @@ import * as Yup from "yup";
 import { authThunks } from "features/auth/auth.slice";
 import "../../../styles/_form.scss";
 import { Navigate } from "react-router-dom";
-import { useAppDispatch } from "common/hooks/useAppDispatch";
-import { useAppSelector } from "common/hooks/useAppSelector";
+import { useAppDispatch, useAppSelector } from "common/hooks";
 
 const theme = createTheme();
 

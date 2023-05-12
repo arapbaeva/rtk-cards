@@ -1,8 +1,7 @@
 import { useEffect } from "react";
 import { authThunks } from "features/auth/auth.slice";
 import { LinearProgress } from "@mui/material";
-import { useAppSelector } from "common/hooks/useAppSelector";
-import { useAppDispatch } from "common/hooks/useAppDispatch";
+import { useAppDispatch, useAppSelector } from "common/hooks";
 
 function App() {
   const isLoading = useAppSelector((state) => state.app.isLoading);

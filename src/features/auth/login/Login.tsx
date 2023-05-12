@@ -18,7 +18,7 @@ import { Copyright } from "common/copyright/Copyright";
 import * as Yup from "yup";
 import { useFormik } from "formik";
 import "../../../styles/_form.scss";
-import { useAppDispatch } from "common/hooks/useAppDispatch";
+import { useAppDispatch } from "common/hooks";
 
 const theme = createTheme();
 

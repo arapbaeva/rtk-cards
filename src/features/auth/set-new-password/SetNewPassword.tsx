@@ -14,8 +14,7 @@ import { Visibility, VisibilityOff } from "@mui/icons-material";
 import Button from "@mui/material/Button";
 import { Copyright } from "common/copyright/Copyright";
 import { Navigate, useParams } from "react-router-dom";
-import { useAppDispatch } from "common/hooks/useAppDispatch";
-import { useAppSelector } from "common/hooks/useAppSelector";
+import { useAppDispatch, useAppSelector } from "common/hooks";
 
 const theme = createTheme();
 
