@@ -12,6 +12,7 @@ import { ForgotPassword } from "features/auth/forgot-password/ForgotPassword";
 import { SetNewPassword } from "features/auth/set-new-password/SetNewPassword";
 import { CheckEmail } from "features/auth/check-email/CheckEmail";
 import { Profile } from "features/auth/profile/Profile";
+import { GlobalError } from "common/components/GlobalError/GlobalError";
 
 const router = createBrowserRouter([
   {
@@ -53,6 +54,7 @@ const root = createRoot(container);
 
 root.render(
   <Provider store={store}>
+    <GlobalError />
     <RouterProvider router={router} />
     <App />
   </Provider>
