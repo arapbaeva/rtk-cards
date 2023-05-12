@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { AxiosError, isAxiosError } from "axios";
 
 const slice = createSlice({
   name: "app",
@@ -30,6 +31,12 @@ const slice = createSlice({
       .addMatcher(
         (action) => action.type.endsWith("/fulfilled"),
         (state, action) => {
+          const err = action.payload as Error | AxiosError<{ error: string }>;
+          if (isAxiosError(err)) {
+            state.error = err.response ? err.response.data.error : err.message;
+          } else {
+            state.error = `Native error ${err.message}`;
+          }
           state.isLoading = false;
         }
       )
