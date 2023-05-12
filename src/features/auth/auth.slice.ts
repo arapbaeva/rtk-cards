@@ -9,14 +9,22 @@ const register = createAppAsyncThunk<void, ArgRegisterType>("auth/register", asy
   try {
     await authApi.register(arg);
   } catch (e: any) {
+    debugger;
     dispatch(appActions.setError({ error: e.response ? e.response.data.error : e.message }));
     return rejectWithValue(null);
   }
 });
 
-const login = createAppAsyncThunk<{ profile: ProfileType }, ArgLoginType>("auth/login", async (arg) => {
-  const res = await authApi.login(arg);
-  return { profile: res.data };
+const login = createAppAsyncThunk<{ profile: ProfileType }, ArgLoginType>("auth/login", async (arg, thunkAPI) => {
+  const { dispatch, rejectWithValue } = thunkAPI;
+  try {
+    const res = await authApi.login(arg);
+    return { profile: res.data };
+  } catch (e: any) {
+    debugger;
+    dispatch(appActions.setError({ error: e.response ? e.response.data.error : e.message }));
+    return rejectWithValue(null);
+  }
 });
 
 const recoveryPassword = createAppAsyncThunk<{ email: string }, string>("auth/recoveryPassword", async (arg) => {
