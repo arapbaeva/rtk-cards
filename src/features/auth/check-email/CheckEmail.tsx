@@ -9,9 +9,11 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import { Copyright } from "common/copyright/Copyright";
 import { NavLink } from "react-router-dom";
+import { useAppSelector } from "common/hooks";
 
 const theme = createTheme();
 export const CheckEmail = () => {
+  const email = useAppSelector((state) => state.auth.profile?.email);
   return (
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
@@ -31,7 +33,7 @@ export const CheckEmail = () => {
             Check Email
           </Typography>
           <Box sx={{ mt: 1 }}>
-            <div className="info b-title bt14 color6">We've sent an Email with instructions to example@mail.com</div>
+            <div className="info b-title bt14 color6">We've sent an Email with instructions to {email}</div>
             <NavLink to={"/login"}>
               <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
                 Back to login

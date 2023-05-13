@@ -13,16 +13,27 @@ import { EditableSpan } from "common/components/EditableSpan";
 import { authThunks } from "features/auth/auth.slice";
 import { useAppDispatch } from "common/hooks/useAppDispatch";
 import { useAppSelector } from "common/hooks/useAppSelector";
+import { useNavigate } from "react-router-dom";
 
 const theme = createTheme();
 
 export const Profile = () => {
   const dispatch = useAppDispatch();
   const profile = useAppSelector((state) => state.auth.profile);
+  const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn);
+  const navigate = useNavigate();
 
   const editName = (name: string) => {
     dispatch(authThunks.updateUserData({ name }));
   };
+
+  const logoutHandler = () => {
+    dispatch(authThunks.logout());
+  };
+
+  if (!isLoggedIn) {
+    navigate("/login");
+  }
 
   return (
     <ThemeProvider theme={theme}>
@@ -49,7 +60,7 @@ export const Profile = () => {
           <div className="info b-title bt14 color6">
             <EditableSpan name={profile ? profile.name : ""} callback={editName} />
           </div>
-          <Button type="submit" fullWidth variant="outlined" sx={{ mt: 3, mb: 2 }}>
+          <Button type="submit" fullWidth variant="outlined" sx={{ mt: 3, mb: 2 }} onClick={logoutHandler}>
             <LogoutIcon />
             Log out
           </Button>

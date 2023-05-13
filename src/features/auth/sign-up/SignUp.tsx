@@ -55,7 +55,7 @@ export default function SignUp() {
       dispatch(authThunks.register(data));
     },
   });
-  if (status === "succeeded") {
+  if (status === "idle") {
     return <Navigate to={"/login"} />;
   }
 

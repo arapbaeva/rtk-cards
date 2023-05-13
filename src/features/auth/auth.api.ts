@@ -14,7 +14,11 @@ export const authApi = {
     return instance.post<ProfileType>("/auth/login", arg);
   },
   forgot: (email: string) => {
-    return instance.post("/auth/forgot", { email, message }, { withCredentials: true });
+    return instance.post(
+      "https://neko-back.herokuapp.com/2.0/auth/forgot",
+      { email, message },
+      { withCredentials: true }
+    );
   },
   newPassword: (data: NewPasswordType) => {
     return instance.post("/auth/set-new-password", data);
@@ -22,9 +26,17 @@ export const authApi = {
   me: () => {
     return instance.post<ProfileType>("/auth/me");
   },
+  logout: () => {
+    return instance.delete<{ info: string }>("/auth/me");
+  },
 };
 
 // Types
+
+export type LogoutType = {
+  info: string;
+  error: string;
+};
 export type NewPasswordType = {
   password: string;
   resetPasswordToken: string | undefined;

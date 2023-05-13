@@ -36,9 +36,9 @@ export const ForgotPassword = () => {
     },
   });
 
-  if (status === "succeeded") {
-    return <Navigate to={"/check-email"} />;
-  }
+  // if (status === "succeeded") {
+  //   return <Navigate to={"/check-email"} />;
+  // }
 
   return (
     <ThemeProvider theme={theme}>
