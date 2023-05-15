@@ -13,6 +13,7 @@ import { SetNewPassword } from "features/auth/set-new-password/SetNewPassword";
 import { CheckEmail } from "features/auth/check-email/CheckEmail";
 import { Profile } from "features/auth/profile/Profile";
 import { GlobalError } from "common/components/GlobalError/GlobalError";
+import { Packs } from "features/packs/Packs";
 
 const router = createBrowserRouter([
   {
@@ -45,7 +46,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/packs",
-    element: <h1>Packs</h1>,
+    element: <Packs />,
   },
 ]);
 

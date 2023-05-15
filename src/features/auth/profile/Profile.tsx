@@ -60,6 +60,7 @@ export const Profile = () => {
           <div className="info b-title bt14 color6">
             <EditableSpan name={profile ? profile.name : ""} callback={editName} />
           </div>
+          <div>{profile?.email}</div>
           <Button type="submit" fullWidth variant="outlined" sx={{ mt: 3, mb: 2 }} onClick={logoutHandler}>
             <LogoutIcon />
             Log out
