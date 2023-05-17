@@ -18,6 +18,7 @@ import * as Yup from "yup";
 import { authThunks } from "features/auth/auth.slice";
 import { Navigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "common/hooks";
+import { paths } from "common/constants/paths";
 
 const theme = createTheme();
 
@@ -55,7 +56,7 @@ export default function SignUp() {
     },
   });
   if (status === "idle") {
-    return <Navigate to={"/login"} />;
+    return <Navigate to={paths.LOGIN} />;
   }
 
   return (
@@ -142,7 +143,7 @@ export default function SignUp() {
             </Button>
             <Grid container>
               <Grid item>
-                <Link href="/login" variant="body2">
+                <Link href={paths.LOGIN} variant="body2">
                   {"Already have an account? Sign In"}
                 </Link>
               </Grid>

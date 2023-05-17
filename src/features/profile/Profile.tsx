@@ -14,6 +14,7 @@ import { authThunks } from "features/auth/auth.slice";
 import { useAppDispatch } from "common/hooks/useAppDispatch";
 import { useAppSelector } from "common/hooks/useAppSelector";
 import { useNavigate } from "react-router-dom";
+import { paths } from "common/constants/paths";
 
 const theme = createTheme();
 
@@ -32,7 +33,7 @@ export const Profile = () => {
   };
 
   if (!isLoggedIn) {
-    navigate("/login");
+    navigate(paths.LOGIN);
   }
 
   return (

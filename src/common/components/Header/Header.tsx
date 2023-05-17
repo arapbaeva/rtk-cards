@@ -5,6 +5,7 @@ import { useAppSelector } from "common/hooks";
 import IMG from "assets/images/image-2.png";
 import { NavLink } from "react-router-dom";
 import Button from "@mui/material/Button";
+import { paths } from "common/constants/paths";
 
 export const Header = () => {
   const name = useAppSelector((state) => state.auth.profile?.name);
@@ -15,12 +16,12 @@ export const Header = () => {
       <NavWrapper>
         <Logo alt="Logo" src={LOGO} />
         {isLoggedIn ? (
-          <NavLink to={"/profile"}>
+          <NavLink to={paths.USER_PROFILE}>
             {name ? name : "No name )"}
             <Ava alt="Travis Howard" src={IMG} />
           </NavLink>
         ) : (
-          <NavLink to={"/login"}>
+          <NavLink to={paths.LOGIN}>
             <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
               Sign In
             </Button>

@@ -15,55 +15,57 @@ import { Profile } from "features/profile/Profile";
 import { GlobalError } from "common/components/GlobalError/GlobalError";
 import { Packs } from "features/packs/Packs";
 import { Header } from "common/components/Header/Header";
+import { router } from "common/routes/Routes";
 
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <App />,
-    errorElement: <GlobalError />,
-
-    children: [
-      {
-        path: "/",
-        element: <div>Hello world!</div>,
-      },
-      {
-        path: "/login",
-        element: <Login />,
-      },
-      {
-        path: "/register",
-        element: <SignUp />,
-      },
-      {
-        path: "/forgot",
-        element: <ForgotPassword />,
-      },
-      {
-        path: "/set-new-password/:token",
-        element: <SetNewPassword />,
-      },
-      {
-        path: "/check-email",
-        element: <CheckEmail />,
-      },
-      {
-        path: "/profile",
-        element: <Profile />,
-      },
-      {
-        path: "/packs",
-        element: <Packs />,
-      },
-    ],
-  },
-]);
+// const router = createBrowserRouter([
+//   {
+//     path: "/",
+//     element: <App />,
+//     errorElement: <GlobalError />,
+//
+//     children: [
+//       {
+//         path: "/",
+//         element: <div>Hello world!</div>,
+//       },
+//       {
+//         path: "/login",
+//         element: <Login />,
+//       },
+//       {
+//         path: "/register",
+//         element: <SignUp />,
+//       },
+//       {
+//         path: "/forgot",
+//         element: <ForgotPassword />,
+//       },
+//       {
+//         path: "/set-new-password/:token",
+//         element: <SetNewPassword />,
+//       },
+//       {
+//         path: "/check-email",
+//         element: <CheckEmail />,
+//       },
+//       {
+//         path: "/profile",
+//         element: <Profile />,
+//       },
+//       {
+//         path: "/packs",
+//         element: <Packs />,
+//       },
+//     ],
+//   },
+// ]);
 
 const container = document.getElementById("root")!;
 const root = createRoot(container);
 
 root.render(
   <Provider store={store}>
+    <GlobalError />
     <RouterProvider router={router} />
   </Provider>
 );

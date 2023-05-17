@@ -55,7 +55,6 @@ export const Packs = () => {
                 <TableCell align="right">{new Date(pack.updated).toLocaleDateString("ua")}</TableCell>
                 <TableCell align="right">{pack.user_name}</TableCell>
                 <TableCell align="right">
-                  {pack.cardsCount || id === pack.user_id} ?
                   <SchoolIcon />
                   <EditIcon />
                   <DeleteIcon />
