@@ -1,7 +1,8 @@
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 import { authThunks } from "features/auth/auth.slice";
 import { LinearProgress } from "@mui/material";
 import { useAppDispatch, useAppSelector } from "common/hooks";
+import { Header } from "common/components/Header/Header";
 
 function App() {
   const isLoading = useAppSelector((state) => state.app.isLoading);
@@ -11,13 +12,12 @@ function App() {
     dispatch(authThunks.me());
   }, [dispatch]);
 
-  // useEffect(() => {
-  //   setTimeout(() => {
-  //     dispatch(appActions.setIsLoading({ isLoading: false }));
-  //   }, 3000);
-  // }, []);
-
-  return <div className="App">{isLoading && <LinearProgress />}</div>;
+  return (
+    <div className="App">
+      {isLoading && <LinearProgress />}
+      <Header />
+    </div>
+  );
 }
 
 export default App;

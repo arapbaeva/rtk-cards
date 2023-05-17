@@ -11,42 +11,51 @@ import SignUp from "features/auth/sign-up/SignUp";
 import { ForgotPassword } from "features/auth/forgot-password/ForgotPassword";
 import { SetNewPassword } from "features/auth/set-new-password/SetNewPassword";
 import { CheckEmail } from "features/auth/check-email/CheckEmail";
-import { Profile } from "features/auth/profile/Profile";
+import { Profile } from "features/profile/Profile";
 import { GlobalError } from "common/components/GlobalError/GlobalError";
 import { Packs } from "features/packs/Packs";
+import { Header } from "common/components/Header/Header";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <div>Hello world!</div>,
-  },
-  {
-    path: "/login",
-    element: <Login />,
-  },
-  {
-    path: "/register",
-    element: <SignUp />,
-  },
-  {
-    path: "/forgot",
-    element: <ForgotPassword />,
-  },
-  {
-    path: "/set-new-password/:token",
-    element: <SetNewPassword />,
-  },
-  {
-    path: "/check-email",
-    element: <CheckEmail />,
-  },
-  {
-    path: "/profile",
-    element: <Profile />,
-  },
-  {
-    path: "/packs",
-    element: <Packs />,
+    element: <App />,
+    errorElement: <GlobalError />,
+
+    children: [
+      {
+        path: "/",
+        element: <div>Hello world!</div>,
+      },
+      {
+        path: "/login",
+        element: <Login />,
+      },
+      {
+        path: "/register",
+        element: <SignUp />,
+      },
+      {
+        path: "/forgot",
+        element: <ForgotPassword />,
+      },
+      {
+        path: "/set-new-password/:token",
+        element: <SetNewPassword />,
+      },
+      {
+        path: "/check-email",
+        element: <CheckEmail />,
+      },
+      {
+        path: "/profile",
+        element: <Profile />,
+      },
+      {
+        path: "/packs",
+        element: <Packs />,
+      },
+    ],
   },
 ]);
 
@@ -55,8 +64,6 @@ const root = createRoot(container);
 
 root.render(
   <Provider store={store}>
-    <GlobalError />
-    <App />
     <RouterProvider router={router} />
   </Provider>
 );

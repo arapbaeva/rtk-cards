@@ -16,7 +16,6 @@ import { useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { authThunks } from "features/auth/auth.slice";
-import "../../../styles/_form.scss";
 import { Navigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "common/hooks";
 

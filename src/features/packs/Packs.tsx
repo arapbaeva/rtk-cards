@@ -9,15 +9,19 @@ import Paper from "@mui/material/Paper";
 import { useAppDispatch, useAppSelector } from "common/hooks";
 import { useEffect } from "react";
 import { packsThunks } from "features/packs/packs.slice";
+import SchoolIcon from "@mui/icons-material/School";
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 export const Packs = () => {
-  const packs = useAppSelector((state) => state.packs.packs);
+  const packs = useAppSelector((state) => state.packs.cardPacks);
   const id = useAppSelector((state) => state.auth.profile?._id);
   const dispatch = useAppDispatch();
-  console.log(packs);
+
   useEffect(() => {
-    dispatch(packsThunks.getPacks({ user_id: id ?? "" }));
+    dispatch(packsThunks.getPacks({ user_id: id ? id : "" }));
   }, []);
+
   return (
     <div style={{ overflowY: "auto", marginTop: "200px", marginLeft: "100px", marginRight: "100px" }}>
       <TableContainer component={Paper}>
@@ -50,7 +54,12 @@ export const Packs = () => {
                 <TableCell align="right">{pack.cardsCount}</TableCell>
                 <TableCell align="right">{new Date(pack.updated).toLocaleDateString("ua")}</TableCell>
                 <TableCell align="right">{pack.user_name}</TableCell>
-                <TableCell align="right">{pack.user_id}</TableCell>
+                <TableCell align="right">
+                  {pack.cardsCount || id === pack.user_id} ?
+                  <SchoolIcon />
+                  <EditIcon />
+                  <DeleteIcon />
+                </TableCell>
               </TableRow>
             ))}
           </TableBody>

@@ -17,7 +17,6 @@ import { authThunks } from "features/auth/auth.slice";
 import { Copyright } from "common/copyright/Copyright";
 import * as Yup from "yup";
 import { useFormik } from "formik";
-import "../../../styles/_form.scss";
 import { useAppDispatch, useAppSelector } from "common/hooks";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";

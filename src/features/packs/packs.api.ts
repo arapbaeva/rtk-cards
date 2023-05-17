@@ -1,13 +1,20 @@
 import { instance } from "common/api/common.api";
 
 export const packsApi = {
-  getPacks: (data: getParamsPacksType) => {
-    debugger;
+  getPacks: (data: GetParamsPacksType) => {
     return instance.get("/cards/pack", { data });
   },
+  createPacks: (data: CreatePacksDataType) => {
+    return instance.post("/cards/pack", { cardsPack: data });
+  },
+};
+export type CreatePacksDataType = {
+  name: string; // если не отправить будет таким
+  deckCover?: string; // не обязателен
+  private: boolean; // если не отправить будет такой
 };
 
-export type getParamsPacksType = {
+export type GetParamsPacksType = {
   packName?: string; // не обязательно
   min?: number; // не обязательно
   max?: number; // не обязательно
