@@ -3,6 +3,7 @@ import { authThunks } from "features/auth/auth.slice";
 import { LinearProgress } from "@mui/material";
 import { useAppDispatch, useAppSelector } from "common/hooks";
 import { Header } from "common/components/Header/Header";
+import { Filter } from "common/components/filter/Filter";
 
 function App() {
   const isLoading = useAppSelector((state) => state.app.isLoading);
@@ -16,6 +17,7 @@ function App() {
     <div className="App">
       {isLoading && <LinearProgress />}
       <Header />
+      <Filter />
     </div>
   );
 }
