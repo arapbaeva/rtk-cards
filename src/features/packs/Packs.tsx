@@ -12,6 +12,7 @@ import { packsThunks } from "features/packs/packs.slice";
 import SchoolIcon from "@mui/icons-material/School";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
+import { Filter } from "common/components/filter/Filter";
 
 export const Packs = () => {
   const packs = useAppSelector((state) => state.packs.cardPacks);
@@ -24,6 +25,7 @@ export const Packs = () => {
 
   return (
     <div style={{ overflowY: "auto", marginTop: "200px", marginLeft: "100px", marginRight: "100px" }}>
+      <Filter />
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 600 }} aria-label="simple table">
           <TableHead>

@@ -22,7 +22,7 @@ export const Filter = () => {
     <Box sx={{ flexGrow: 1, justifyContent: "space-between" }}>
       <Grid container spacing={4}>
         <Grid item xs={4}>
-          <SearchBar />
+          <SearchBar tableName={"packs"} />
         </Grid>
         <Grid item xs={2}>
           <DeckOfCards />

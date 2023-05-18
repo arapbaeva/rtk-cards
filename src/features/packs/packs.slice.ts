@@ -24,7 +24,6 @@ const getPacks = createAppAsyncThunk<PackResponseTypeCardPacks[], GetParamsPacks
 const createPacks = createAppAsyncThunk<any, any>("packs/createPacks", async (arg, thunkAPI) => {
   return thunkTryCatch(thunkAPI, async () => {
     const res = await packsApi.createPacks(arg);
-    console.log(res, "resss");
   });
 });
 
@@ -33,6 +32,7 @@ const slice = createSlice({
   initialState: {
     cardPacks: [] as PackResponseTypeCardPacks[],
     newCardsPack: {} as CreatePacksDataType,
+    packName: "",
   },
   reducers: {
     setPacks: (state, action) => {
@@ -40,6 +40,9 @@ const slice = createSlice({
     },
     createPacks: (state, action) => {
       state.newCardsPack = action.payload.newCardsPack;
+    },
+    setSearchPacks: (state, action) => {
+      state.packName = action.payload.packName;
     },
   },
   extraReducers: (builder) => {
