@@ -1,8 +1,10 @@
 import { instance } from "common/api/common.api";
 
 export const packsApi = {
-  getPacks: (data: GetParamsPacksType) => {
-    return instance.get("/cards/pack", { data });
+  getPacks: (params: GetParamsPacksType) => {
+    return instance.get("/cards/pack", {
+      params,
+    });
   },
   createPacks: (data: CreatePacksDataType) => {
     return instance.post("/cards/pack", { cardsPack: data });

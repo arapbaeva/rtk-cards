@@ -4,6 +4,7 @@ import { LinearProgress } from "@mui/material";
 import { useAppDispatch, useAppSelector } from "common/hooks";
 import { Header } from "common/components/Header/Header";
 import { Filter } from "common/components/filter/Filter";
+import { AddModal } from "common/modal/AddModal";
 
 function App() {
   const isLoading = useAppSelector((state) => state.app.isLoading);
@@ -17,6 +18,7 @@ function App() {
     <div className="App">
       {isLoading && <LinearProgress />}
       <Header />
+      <AddModal />
       {/*<Filter />*/}
     </div>
   );
