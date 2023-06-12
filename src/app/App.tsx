@@ -5,6 +5,7 @@ import { useAppDispatch, useAppSelector } from "common/hooks";
 import { Header } from "common/components/Header/Header";
 import { Filter } from "common/components/filter/Filter";
 import { AddModal } from "common/modal/AddModal";
+import { Packs } from "features/packs/Packs";
 
 function App() {
   const isLoading = useAppSelector((state) => state.app.isLoading);

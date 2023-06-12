@@ -3,7 +3,6 @@ import { ArgLoginType, ArgRegisterType, authApi, NewPasswordType, ProfileType } 
 import { createAppAsyncThunk } from "common/utils/createAppAsyncThunk";
 import { profileApi, UserProfile } from "features/profile/profile.api";
 import { thunkTryCatch } from "common/utils/thunk-try-catch";
-import { appActions } from "app/app.slice";
 
 const register = createAppAsyncThunk<void, ArgRegisterType>("auth/register", async (arg: ArgRegisterType, thunkAPI) => {
   return thunkTryCatch(thunkAPI, async () => {

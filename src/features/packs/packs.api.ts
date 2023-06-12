@@ -1,13 +1,13 @@
-import { instance } from "common/api/common.api";
+import { PacksInstance } from "features/packs/packs.instance";
 
 export const packsApi = {
   getPacks: (params: GetParamsPacksType) => {
-    return instance.get("/cards/pack", {
+    return PacksInstance.get("pack", {
       params,
     });
   },
   createPacks: (data: CreatePacksDataType) => {
-    return instance.post("/cards/pack", { cardsPack: data });
+    return PacksInstance.post("pack", { cardsPack: data });
   },
 };
 export type CreatePacksDataType = {

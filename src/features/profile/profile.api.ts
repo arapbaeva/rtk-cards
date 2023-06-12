@@ -1,9 +1,9 @@
-import { instance } from "common/api/common.api";
 import { ProfileType } from "features/auth/auth.api";
+import { AuthInstance } from "features/auth/auth.instance";
 
 export const profileApi = {
   changeUserData: (data: UserProfile) => {
-    return instance.put<"", UserUpdateResponse, UserProfile>("/auth/me", data);
+    return AuthInstance.put<"", UserUpdateResponse, UserProfile>("me", data);
   },
 };
 

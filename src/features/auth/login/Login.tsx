@@ -20,6 +20,7 @@ import { useFormik } from "formik";
 import { useAppDispatch, useAppSelector } from "common/hooks";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { paths } from "common/constants/paths";
 
 const theme = createTheme();
 
@@ -131,12 +132,12 @@ export default function Login() {
               </Button>
               <Grid container>
                 <Grid item xs>
-                  <Link href="/forgot" variant="body2">
+                  <Link href={paths.FORGOT_PASSWORD} variant="body2">
                     Forgot password?
                   </Link>
                 </Grid>
                 <Grid item>
-                  <Link href="/register" variant="body2">
+                  <Link href={paths.REGISTRATION} variant="body2">
                     {"Don't have an account? Sign Up"}
                   </Link>
                 </Grid>

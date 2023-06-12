@@ -1,4 +1,4 @@
-import { instance } from "common/api/common.api";
+import { AuthInstance } from "features/auth/auth.instance";
 
 const message = `<div style="background-color: lime; padding: 15px">
 password recovery link: 
@@ -8,26 +8,26 @@ link</a>
 
 export const authApi = {
   register: (arg: ArgRegisterType) => {
-    return instance.post<RegisterResponseType>("/auth/register", arg);
+    return AuthInstance.post<RegisterResponseType>("register", arg);
   },
   login: (arg: ArgLoginType) => {
-    return instance.post<ProfileType>("/auth/login", arg);
+    return AuthInstance.post<ProfileType>("login", arg);
   },
   forgot: (email: string) => {
-    return instance.post(
+    return AuthInstance.post(
       "https://neko-back.herokuapp.com/2.0/auth/forgot",
       { email, message },
       { withCredentials: true }
     );
   },
   newPassword: (data: NewPasswordType) => {
-    return instance.post("/auth/set-new-password", data);
+    return AuthInstance.post("set-new-password", data);
   },
   me: () => {
-    return instance.post<ProfileType>("/auth/me");
+    return AuthInstance.post<ProfileType>("me");
   },
   logout: () => {
-    return instance.delete<{ info: string }>("/auth/me");
+    return AuthInstance.delete<{ info: string }>("me");
   },
 };
 

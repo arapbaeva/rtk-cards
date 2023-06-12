@@ -55,9 +55,9 @@ export default function SignUp() {
       dispatch(authThunks.register(data));
     },
   });
-  if (status === "idle") {
-    return <Navigate to={paths.LOGIN} />;
-  }
+  // if (status === "idle") {
+  //   return <Navigate to={paths.LOGIN} />;
+  // }
 
   return (
     <ThemeProvider theme={theme}>
