@@ -14,22 +14,32 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { Filter } from "common/components/filter/Filter";
 import Button from "@mui/material/Button";
+import { UniversalModal } from "common/modal/UniversalModal";
 
 export const Packs = () => {
   const packs = useAppSelector((state) => state.packs.cardPacks);
   const id = useAppSelector((state) => state.auth.profile?._id);
   const packName = useAppSelector((state) => state.packs.packName);
+  const deckCover = useAppSelector((state) => state.packs.deckCover);
   const dispatch = useAppDispatch();
   const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+
   useEffect(() => {
     dispatch(packsThunks.getPacks({ user_id: id ? id : "", packName }));
   }, [packName]);
+  const [value, setValue] = useState("");
+
+  const addNewPackHandler = (name: string, deckCover: string) => {
+    dispatch(packsThunks.createPacks({ name, deckCover }));
+    setOpen(true);
+  };
 
   return (
     <div style={{ overflowY: "auto", marginTop: "200px", marginLeft: "100px", marginRight: "100px" }}>
-      <Button onClick={handleOpen}>Add new pack</Button>
+      <UniversalModal>
+        <input value={value} type={"text"} onChange={(e) => setValue(e.currentTarget.value)} />
+        <Button onClick={() => addNewPackHandler(value, deckCover)}>Add New Pack</Button>
+      </UniversalModal>
       <Filter />
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 600 }} aria-label="simple table">
@@ -53,7 +63,7 @@ export const Packs = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {packs.length ? (
+            {packs && packs.length ? (
               packs.map((pack) => (
                 <TableRow key={pack.name} sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
                   <TableCell component="th" scope="row">

@@ -27,12 +27,15 @@ const createPacks = createAppAsyncThunk<any, any>("packs/createPacks", async (ar
   });
 });
 
+const deletePacks = createAppAsyncThunk<any, any>("packs/deletePacks", async () => {});
+
 const slice = createSlice({
   name: "packs",
   initialState: {
     cardPacks: [] as PackResponseTypeCardPacks[],
     newCardsPack: {} as CreatePacksDataType,
     packName: "",
+    deckCover: "",
   },
   reducers: {
     setPacks: (state, action) => {

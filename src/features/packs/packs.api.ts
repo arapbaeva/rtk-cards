@@ -9,6 +9,13 @@ export const packsApi = {
   createPacks: (data: CreatePacksDataType) => {
     return PacksInstance.post("pack", { cardsPack: data });
   },
+  deletePacks: (id: string) => {
+    return PacksInstance.delete<DeletedPackResponseType>(`pack?id=${id}`);
+  },
+};
+
+export type DeletedPackResponseType = {
+  deletedCardsPack: {};
 };
 export type CreatePacksDataType = {
   name: string; // если не отправить будет таким
