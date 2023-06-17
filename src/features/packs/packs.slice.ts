@@ -27,12 +27,19 @@ const createPacks = createAppAsyncThunk<any, any>("packs/createPacks", async (ar
   });
 });
 
-const deletePacks = createAppAsyncThunk<any, any>("packs/deletePacks", async () => {});
+const deletePacks = createAppAsyncThunk<any, any>("packs/deletePacks", async (arg, thunkAPI) => {
+  return thunkTryCatch(thunkAPI, async () => {
+    const res = await packsApi.deletePacks(arg);
+    // thunkAPi.dispatch(getPacks())
+    return res.data.deletedCardsPack._id;
+  });
+});
 
 const slice = createSlice({
   name: "packs",
   initialState: {
     cardPacks: [] as PackResponseTypeCardPacks[],
+    packId: "",
     newCardsPack: {} as CreatePacksDataType,
     packName: "",
     deckCover: "",
@@ -55,9 +62,13 @@ const slice = createSlice({
     builder.addCase(createPacks.fulfilled, (state, action) => {
       state.cardPacks = action.payload;
     });
+    builder.addCase(deletePacks.fulfilled, (state, action) => {
+      // state.cardPacks = action.payload.cardPacks.filter((pack: any) => pack._id !== action.payload.packId);
+      state.packId = action.payload;
+    });
   },
 });
 
 export const packsReducer = slice.reducer;
 export const packsActions = slice.actions;
-export const packsThunks = { getPacks, createPacks };
+export const packsThunks = { getPacks, createPacks, deletePacks };

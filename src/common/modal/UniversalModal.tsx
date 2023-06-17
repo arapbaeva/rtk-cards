@@ -24,15 +24,18 @@ const style = {
 type PropsType = {
   children: ReactNode;
   title?: string;
+  open: boolean;
+  setOpen: (open: boolean) => void;
 };
 
-export const UniversalModal: FC<PropsType> = ({ children, title }) => {
-  const [open, setOpen] = useState(false);
+export const UniversalModal: FC<PropsType> = ({ children, title, open, setOpen }) => {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   return (
     <div>
-      <Button onClick={handleOpen}>Open Modal</Button>
+      <Button onClick={handleOpen} title={title}>
+        {title}
+      </Button>
       <Modal
         open={open}
         onClose={handleClose}

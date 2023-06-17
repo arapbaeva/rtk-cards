@@ -15,15 +15,19 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import { Filter } from "common/components/filter/Filter";
 import Button from "@mui/material/Button";
 import { UniversalModal } from "common/modal/UniversalModal";
+import Box from "@mui/material/Box";
+import { TextField } from "@mui/material";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Checkbox from "@mui/material/Checkbox";
 
 export const Packs = () => {
   const packs = useAppSelector((state) => state.packs.cardPacks);
   const id = useAppSelector((state) => state.auth.profile?._id);
   const packName = useAppSelector((state) => state.packs.packName);
   const deckCover = useAppSelector((state) => state.packs.deckCover);
+  const packId = useAppSelector((state) => state.packs.packId);
   const dispatch = useAppDispatch();
-  const [open, setOpen] = React.useState(false);
-
+  const [open, setOpen] = useState<boolean>(false);
   useEffect(() => {
     dispatch(packsThunks.getPacks({ user_id: id ? id : "", packName }));
   }, [packName]);
@@ -31,14 +35,31 @@ export const Packs = () => {
 
   const addNewPackHandler = (name: string, deckCover: string) => {
     dispatch(packsThunks.createPacks({ name, deckCover }));
-    setOpen(true);
+    setValue("");
+    setOpen(false);
   };
 
+  const deletePackHandler = (packId: string) => {
+    dispatch(packsThunks.deletePacks(packId));
+    dispatch(packsThunks.getPacks({ user_id: id ? id : "", packName }));
+  };
   return (
     <div style={{ overflowY: "auto", marginTop: "200px", marginLeft: "100px", marginRight: "100px" }}>
-      <UniversalModal>
-        <input value={value} type={"text"} onChange={(e) => setValue(e.currentTarget.value)} />
+      <UniversalModal title={"Add new pack"} setOpen={setOpen} open={open}>
+        <Button>Add new pack</Button>
+        <Box id="modal-modal-description" sx={{ mt: 2 }}>
+          <TextField
+            id="standard-basic"
+            label="Name Pack"
+            variant="standard"
+            value={value}
+            type={"text"}
+            onChange={(e) => setValue(e.currentTarget.value)}
+          />
+        </Box>
+        {/*<input value={value} type={"text"} onChange={(e) => setValue(e.currentTarget.value)} />*/}
         <Button onClick={() => addNewPackHandler(value, deckCover)}>Add New Pack</Button>
+        <FormControlLabel control={<Checkbox defaultChecked />} label="Private pack" />
       </UniversalModal>
       <Filter />
       <TableContainer component={Paper}>
@@ -75,7 +96,7 @@ export const Packs = () => {
                   <TableCell align="right">
                     <SchoolIcon />
                     <EditIcon />
-                    <DeleteIcon />
+                    <DeleteIcon onClick={() => deletePackHandler(pack._id)} />
                   </TableCell>
                 </TableRow>
               ))

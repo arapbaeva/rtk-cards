@@ -1,6 +1,6 @@
 export const paths = {
   PACK_LIST: "/",
-  PACK: "pack/:packId",
+  PACK: "/pack",
   // LEARN_PACK: "pack/learn/:packId/",
   USER_PROFILE: "/user-profile",
   AUTH: "auth",
